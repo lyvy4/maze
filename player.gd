@@ -3,7 +3,7 @@ extends CharacterBody2D
 #set speed of the player
 var SPEED := 200
 
-var INITIAL_POSITION = Vector2(1123, 565)
+var INITIAL_POSITION = Vector2(876, 503)
 
 func _process(delta):
 	#Initialize direction
@@ -25,3 +25,7 @@ func _process(delta):
 
 	#move the player
 	move_and_slide()
+
+func reset_player_position():
+	velocity = Vector2.ZERO
+	global_position = INITIAL_POSITION
