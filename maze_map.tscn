@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=3 uid="uid://bge2bsjyq33yl"]
+
+[ext_resource type="PackedScene" uid="uid://ds4jq1fv5h5tx" path="res://player.tscn" id="1_5bh2t"]
+[ext_resource type="Script" path="res://maze_map.gd" id="1_k7ka2"]
+
+[sub_resource type="Gradient" id="Gradient_8xxac"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ildbk"]
+gradient = SubResource("Gradient_8xxac")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6h7f3"]
+size = Vector2(8.10001, 8.525)
+
+[node name="MazeMap" type="Node2D"]
+script = ExtResource("1_k7ka2")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(2987, 1451)
+scale = Vector2(102.219, 47.0938)
+texture = SubResource("GradientTexture2D_ildbk")
+
+[node name="Walls" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls"]
+position = Vector2(466, 282)
+scale = Vector2(0.7, 0.7)
+polygon = PackedVector2Array(683, 193, 1501, 2661, 2545, 2663, 3191, 2251, 3973, 2503, 3945, 1601, 4653, 1355, 4959, 1875, 4953, 2267, 6052, 1485, 5532, 913, 5370, 1013, 5766, 1525, 5153, 1965, 5121, 1759, 4753, 1217, 3837, 1469, 3801, 2249, 3129, 2067, 2523, 2491, 1585, 2469, 837, 307, 1799, 291, 1791, 285, 1805, 293, 1803, 293, 1309, 577, 1875, 2081, 2371, 2103, 2873, 1673, 3311, 1737, 3743, 1243, 4815, 903, 4812, 931, 4442, 367)
+
+[node name="Player" parent="." instance=ExtResource("1_5bh2t")]
+position = Vector2(1123, 565)
+
+[node name="Area2D" type="Area2D" parent="."]
+scale = Vector2(20, 20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(210.05, 64.9)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_6h7f3")
+debug_color = Color(0.835294, 0.74902, 0, 0.419608)
+
+[connection signal="body_entered" from="Walls" to="." method="_on_walls_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
