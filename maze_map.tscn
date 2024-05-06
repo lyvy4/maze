@@ -1,58 +1,102 @@
-[gd_scene load_steps=7 format=3 uid="uid://bge2bsjyq33yl"]
+[gd_scene load_steps=12 format=3 uid="uid://bge2bsjyq33yl"]
 
-[ext_resource type="PackedScene" uid="uid://ds4jq1fv5h5tx" path="res://player.tscn" id="1_5bh2t"]
 [ext_resource type="Script" path="res://maze_map.gd" id="1_k7ka2"]
+[ext_resource type="Texture2D" uid="uid://b4bks0ngpmlp8" path="res://playerGrey.png" id="3_25rxh"]
+[ext_resource type="Script" path="res://player.gd" id="3_tcimb"]
+[ext_resource type="AudioStream" uid="uid://df5yntqrvwhk6" path="res://gameover.wav" id="4_2vkql"]
+[ext_resource type="AudioStream" uid="uid://bv1xb1lrkby2u" path="res://time_for_adventure.mp3" id="5_pt2im"]
 
 [sub_resource type="Gradient" id="Gradient_8xxac"]
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_ildbk"]
 gradient = SubResource("Gradient_8xxac")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6h7f3"]
-size = Vector2(8.10001, 8.525)
+[sub_resource type="CircleShape2D" id="CircleShape2D_w4xu4"]
+radius = 30.0666
 
-[sub_resource type="LabelSettings" id="LabelSettings_gnt2p"]
-font_size = 100
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6h7f3"]
+size = Vector2(7.60001, 7.7625)
+
+[sub_resource type="LabelSettings" id="LabelSettings_17n6a"]
+font_size = 50
+
+[sub_resource type="LabelSettings" id="LabelSettings_4epvv"]
+font_size = 50
 
 [node name="MazeMap" type="Node2D"]
 script = ExtResource("1_k7ka2")
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(2987, 1451)
+position = Vector2(3093, 1451)
 scale = Vector2(102.219, 47.0938)
 texture = SubResource("GradientTexture2D_ildbk")
+
+[node name="Polygon2D" type="Polygon2D" parent="Background"]
+color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+polygon = PackedVector2Array(-23.0583, -23.6762, -19.83, -2.84538, -15.6527, -2.84538, -13.2754, -6.22163, -10.2036, -4.11944, -10.2623, -11.7213, -7.54263, -13.8022, -6.35889, -9.64034, -6.35889, -6.07299, -2.07398, -12.7193, -4.09904, -17.5607, -4.7545, -16.5627, -3.27728, -12.5707, -5.54691, -8.76973, -5.65452, -10.4048, -7.16109, -14.9914, -10.7514, -12.8892, -10.859, -6.28533, -13.4906, -7.85666, -15.8288, -4.24684, -19.5071, -4.39548, -22.4616, -22.7418, -18.7343, -22.8905, -20.4169, -20.491, -18.1669, -8.45122, -16.3179, -7.96283, -14.332, -11.8699, -12.9134, -10.3835, -11.7297, -15.6284, -7.23936, -17.7943, -8.34483, -22.1685)
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("3_tcimb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+visible = false
+position = Vector2(928, 539)
+shape = SubResource("CircleShape2D_w4xu4")
+debug_color = Color(0.988235, 0.996078, 1, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+position = Vector2(927, 539)
+scale = Vector2(0.729, 0.531)
+texture = ExtResource("3_25rxh")
 
 [node name="Walls" type="Area2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Walls"]
-position = Vector2(466, 282)
+position = Vector2(461, 256)
 scale = Vector2(0.4, 0.4)
-polygon = PackedVector2Array(683, 193, 1501, 2661, 2545, 2663, 3191, 2251, 3973, 2503, 3945, 1601, 4653, 1355, 4959, 1875, 4953, 2267, 6052, 1485, 5532, 913, 5370, 1013, 5766, 1525, 5153, 1965, 5121, 1759, 4753, 1217, 3837, 1469, 3801, 2249, 3129, 2067, 2523, 2491, 1585, 2469, 837, 307, 1799, 291, 1791, 285, 1805, 293, 1803, 293, 1309, 577, 1875, 2081, 2371, 2103, 2873, 1673, 3311, 1737, 3743, 1243, 4815, 903, 4812, 931, 4442, 367)
+polygon = PackedVector2Array(683, 193, 1501, 2661, 2545, 2663, 3191, 2251, 3973, 2503, 3945, 1601, 4653, 1355, 4959, 1875, 4953, 2267, 6052, 1485, 5532, 913, 5370, 1013, 5766, 1525, 5153, 1965, 5121, 1759, 4753, 1217, 3837, 1469, 3801, 2249, 3129, 2067, 2523, 2491, 1585, 2469, 837, 307, 1799, 291, 1791, 285, 1805, 293, 1803, 293, 1365, 572.5, 1945, 1992.5, 2407.5, 2042.5, 2912.5, 1585, 3287.5, 1760, 3585, 1127.5, 4815, 903, 4715, 885, 4442, 367)
 
-[node name="Player" parent="." instance=ExtResource("1_5bh2t")]
-position = Vector2(876, 503)
-scale = Vector2(0.5, 0.5)
-
-[node name="Area2D" type="Area2D" parent="."]
+[node name="WinArea" type="Area2D" parent="."]
 scale = Vector2(20, 20)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(128.45, 42.7)
-scale = Vector2(1, 1)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WinArea"]
+position = Vector2(127.8, 40.3187)
 shape = SubResource("RectangleShape2D_6h7f3")
 debug_color = Color(0.835294, 0.74902, 0, 0.419608)
 
-[node name="Label" type="Label" parent="."]
-offset_left = 1505.0
-offset_top = 667.0
-offset_right = 1653.0
-offset_bottom = 736.0
-label_settings = SubResource("LabelSettings_gnt2p")
-metadata/_edit_use_anchors_ = true
+[node name="Label" type="Label" parent="WinArea"]
+offset_left = 122.75
+offset_top = 39.05
+offset_right = 373.75
+offset_bottom = 122.05
+scale = Vector2(0.05, 0.05)
+text = "win area"
+label_settings = SubResource("LabelSettings_17n6a")
+
+[node name="Polygon2D" type="Polygon2D" parent="WinArea"]
+position = Vector2(0.6, 1.25)
+polygon = PackedVector2Array(119, 36.3, 128.5, 32.7, 129.4, 34.35, 120.1, 37.8)
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="GameOverSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_2vkql")
+volume_db = 14.0
+
+[node name="Score" type="Label" parent="."]
+offset_left = 2470.0
+offset_top = 1182.0
+offset_right = 2689.0
+offset_bottom = 1278.0
+text = "Score: 0"
+label_settings = SubResource("LabelSettings_4epvv")
+
+[node name="GameSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_pt2im")
+volume_db = 15.0
+autoplay = true
+
 [connection signal="body_entered" from="Walls" to="." method="_on_walls_body_entered"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="WinArea" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

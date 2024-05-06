@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
 #set speed of the player
-var SPEED := 200
+var SPEED := 600
+var FRICTION := 0.01
 
-var INITIAL_POSITION = Vector2(876, 503)
+var INITIAL_POSITION = Vector2(-10, -10)
 
 func _process(delta):
 	#Initialize direction
@@ -22,6 +23,7 @@ func _process(delta):
 	
 	#set the velocity property to be player to be moved
 	velocity += (direction.normalized() * SPEED * delta)
+	velocity -= velocity * FRICTION
 
 	#move the player
 	move_and_slide()
